@@ -1,17 +1,15 @@
-import {
-  getAllHadith,
-  getAllHadithInfo,
-} from './utils/extractHadithInfo.js';
+import { getAllHadith, getAllHadithInfo } from "./utils/extractHadithInfo.js";
 
-const cards = document.getElementsByClassName('cards')[0];
-const next = document.getElementById('next');
-const prev = document.getElementById('prev');
-const pageCounter = document.querySelector('#page-counter span');
-const hadithCounter = document.querySelector('#hadith-counter span');
+const cards = document.getElementsByClassName("cards")[0];
+const loader = document.getElementById("loader")[0];
+const next = document.getElementById("next");
+const prev = document.getElementById("prev");
+const pageCounter = document.querySelector("#page-counter span");
+const hadithCounter = document.querySelector("#hadith-counter span");
 
 let currPage = 1;
 let numberOfHadith;
-let currText = '';
+let currText = "";
 
 const searchForHadithByText = async (text, page = 1) => {
   const url = `https://dorar.net/dorar_api.json?skey=${text}&page=${page}`;
@@ -56,7 +54,7 @@ const updateContent = (allHadith) => {
         </div>`;
   });
 
-  cards.innerHTML = allCardsDiv.join('');
+  cards.innerHTML = allCardsDiv.join("");
 };
 
 const updatePageCounter = () => {
@@ -67,33 +65,36 @@ const updateHadithCounter = () => {
 };
 
 const showMessage = (text) => {
-  const message = document.getElementById('message');
+  const message = document.getElementById("message");
   message.innerHTML = text;
   updatePageCounter();
   updateHadithCounter();
 };
 
 // It will only run once (when the window is rendering for the first time)
-chrome.storage.local.get('text', async ({ text }) => {
+chrome.storage.local.get("text", async ({ text }) => {
+  loader.className = "center";
   const allHadith = await searchForHadithByText(text);
   currText = text;
   numberOfHadith = allHadith.length;
   if (numberOfHadith === 0) {
+    loader.className = "loader-head";
     showMessage(
-      '<span>لا يوجد أي نتائج، حاول أن تحدد عدد كلمات أكثر</span><br/><span>أو أن تحدد نص عربي تعتقد أنه حديث</span>'
+      "<span>لا يوجد أي نتائج، حاول أن تحدد عدد كلمات أكثر</span><br/><span>أو أن تحدد نص عربي تعتقد أنه حديث</span>"
     );
     return;
   }
   updatePageCounter();
   updateHadithCounter();
   updateContent(allHadith);
+  loader.className = "loader-head";
 });
 
-next.addEventListener('click', async (e) => {
+next.addEventListener("click", async (e) => {
   e.preventDefault();
   const allHadith = await searchForHadithByText(currText, currPage + 1);
   if (allHadith.length === 0) {
-    showMessage('<span>لا يوجد نتائج أُخرى</span>');
+    showMessage("<span>لا يوجد نتائج أُخرى</span>");
     return;
   }
   currPage += 1;
@@ -101,7 +102,7 @@ next.addEventListener('click', async (e) => {
   updatePageCounter();
   updateHadithCounter();
 });
-prev.addEventListener('click', async (e) => {
+prev.addEventListener("click", async (e) => {
   e.preventDefault();
   if (currPage === 1) return;
   currPage -= 1;
