@@ -1,7 +1,8 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Neo Sans', sans-serif;
+  font-family: "Neo Sans Arabic", sans-serif;
+  font-family: "Neo Sans", sans-serif;
 }
 
 h1 {
@@ -15,15 +16,12 @@ h1 {
 .group-btn {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   margin-bottom: 1em;
+  justify-content: space-between;
 }
 
 .nice-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: white;
   background-color: #0070f3;
   font-size: 1.5em;
@@ -36,11 +34,9 @@ h1 {
 .nice-btn:hover {
   transform: scale(1.1);
 }
-
 .nice-btn:active {
   background-color: #0160cd;
 }
-
 #page-counter,
 #hadith-counter {
   color: #0070f3;
@@ -61,24 +57,13 @@ h1 {
   align-items: center;
   flex-direction: column;
 }
-
 .cards {
   padding: 2em;
 }
 
 .card {
-  margin: 0.5rem;
-  padding: 1rem;
-  width: 90%;
-  background: white;
-  box-shadow: 0px 0px 0px grey;
-  transition: box-shadow .6s ease-out;
-  box-shadow: .8px .9px 3px grey;
-}
-
-.card:hover {
-  box-shadow: 1px 8px 20px grey;
-  transition: box-shadow .6s ease-in;
+  border-bottom: 3px solid #0070f3;
+  padding: 1em;
 }
 
 .hadith-text {
@@ -89,16 +74,13 @@ h1 {
 .hadith-info {
   padding: 1em 0;
 }
-
-.hadith-info>p {
+.hadith-info > p {
   line-height: 20px;
   font-size: 14px;
 }
-
-.hadith-info>p>span {
+.hadith-info > p > span {
   font-weight: 600;
 }
-
 /* loader css */
 
 .loader {
